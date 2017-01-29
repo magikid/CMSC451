@@ -1,2 +1,2 @@
 # CMSC451
-My algorithms and 
+This is the code that I wrote for my Design and Analysis of Algorithms class.
