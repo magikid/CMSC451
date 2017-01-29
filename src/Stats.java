@@ -1,21 +1,29 @@
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Chris on 1/28/2017.
  * Project project1
  */
 class Stats {
-  private long time;
-  private int count;
+  private final long time;
+  private final int count;
 
   Stats(long time, int count) {
-    this.time = time;
+    this.time = TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS);
     this.count = count;
   }
 
-  public long getTime() {
+  long getTime() {
     return time;
   }
 
-  public int getCount() {
+  int getCount() {
     return count;
+  }
+
+  @Override
+  public String toString() {
+    return "time " + time + " " +
+           "count " + count + "\n";
   }
 }
