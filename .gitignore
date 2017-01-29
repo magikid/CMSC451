@@ -55,8 +55,6 @@ fabric.properties
 
 
 ### Java ###
-*.class
-
 # BlueJ files
 *.ctxt
 
@@ -73,3 +71,5 @@ hs_err_pid*
 
 # End of https://www.gitignore.io/api/java,intellij
 .gitignore
+
+output.csv
