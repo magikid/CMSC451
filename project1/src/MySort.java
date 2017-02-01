@@ -13,12 +13,12 @@ class MySort implements SortInterface {
   @Override
   public List<Long> recursiveSort(List<Long> list) {
     this.startTime = System.nanoTime();
-    List<Long> final_list = mergeSort(list);
+    List<Long> final_list = recursiveMergeSort(list);
     this.endTime = System.nanoTime();
     return final_list;
   }
 
-  private List<Long> mergeSort(List<Long> list){
+  private List<Long> recursiveMergeSort(List<Long> list){
     count++;
     if(list.size() <= 1){
       return list;
@@ -26,8 +26,8 @@ class MySort implements SortInterface {
       int start = 0;
       int end = list.size() - 1;
       int half_way = (int) Math.floor((end - start) / 2);
-      List<Long> left_side = mergeSort(list.subList(start, half_way));
-      List<Long> right_size = mergeSort(list.subList(half_way + 1, end));
+      List<Long> left_side = recursiveMergeSort(list.subList(start, half_way));
+      List<Long> right_size = recursiveMergeSort(list.subList(half_way + 1, end));
       return merge(left_side.iterator(), right_size.iterator());
     }
   }
@@ -57,6 +57,13 @@ class MySort implements SortInterface {
 
   @Override
   public List<Long> iterativeSort(List<Long> list) {
+    this.startTime = System.nanoTime();
+    List<Long> final_list = iterativeMergeSort(list);
+    this.endTime = System.nanoTime();
+    return final_list;
+  }
+
+  private List<Long> iterativeMergeSort(List<Long> list) {
     return list;
   }
 
