@@ -8,12 +8,12 @@ import java.util.stream.IntStream;
  * Project project1
  */
 class BenchmarkSorts {
-  private final ArrayList<Long> list;
+  private final Long[] list;
   private final MySort sort;
   private final ArrayList<Stats> iterativeStats;
   private final ArrayList<Stats> recursiveStats;
 
-  BenchmarkSorts(ArrayList<Long> list) {
+  BenchmarkSorts(Long[] list) {
     this.list = list;
     sort = new MySort();
     iterativeStats = new ArrayList<>();
@@ -43,7 +43,7 @@ class BenchmarkSorts {
         .collect(Collectors.summarizingLong(Stats::getTime)).getAverage();
     double recursiveTimeStdDev = stdDeviationTimes(recursiveStats, recursiveTimeAvg);
 
-    f.printf("%d,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f%n", list.size(), recursiveCountAvg,
+    f.printf("%d,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f%n", list.length, recursiveCountAvg,
         recursiveCountStdDev,
         recursiveTimeAvg, recursiveTimeStdDev, iterativeCountAvg, iterativeCountStdDev,
         iterativeTimeAvg, iterativeTimeStdDev);

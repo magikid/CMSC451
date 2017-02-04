@@ -11,59 +11,71 @@ class MySort implements SortInterface {
   private int count;
 
   @Override
-  public List<Long> recursiveSort(List<Long> list) {
+  public Long[] recursiveSort(Long[] list) {
     this.startTime = System.nanoTime();
-    List<Long> final_list = recursiveMergeSort(list);
+    count = 0;
+    Long[] final_list = new Long[list.length];
+    recursiveMergeSort(list, final_list, 0, list.length);
     this.endTime = System.nanoTime();
     return final_list;
   }
 
-  private List<Long> recursiveMergeSort(List<Long> list){
-    count++;
-    if(list.size() <= 1){
-      return list;
-    } else {
-      int start = 0;
-      int end = list.size() - 1;
-      int half_way = (int) Math.floor((end - start) / 2);
-      List<Long> left_side = recursiveMergeSort(list.subList(start, half_way));
-      List<Long> right_size = recursiveMergeSort(list.subList(half_way + 1, end));
-      return merge(left_side.iterator(), right_size.iterator());
+  private void recursiveMergeSort(Long[] list, Long[] final_list, int start, int end) {
+    if (end - start <= 1) {
+      return;
     }
+    int half_way = start + (end - start) / 2;
+    count++;
+    recursiveMergeSort(list, final_list, start, half_way);
+    count++;
+    recursiveMergeSort(list, final_list, half_way, end);
+    merge(list, final_list, start, half_way, end);
   }
 
-  private List<Long> merge(Iterator<Long> leftList, Iterator<Long> rightList){
-    List<Long> final_list = new ArrayList<>();
-    while (leftList.hasNext() && rightList.hasNext()){
-      long first_left = leftList.next();
-      long first_right = rightList.next();
-      if (first_left > first_right){
-        final_list.add(first_right);
-      } else {
-        final_list.add(first_left);
+  private void merge(Long[] list, Long[] final_list, int start, int half_way, int end){
+    if (half_way >= list.length){
+      return;
+    }
+
+    if (end > list.length){
+      end = list.length;
+    }
+
+    int j = start, k = half_way;
+    for (int i = start; i < end; i++) {
+      if (j == half_way){
+        final_list[i] = list[k++];
+      }else if (k == end){
+        final_list[i] = list[j++];
+      }else if (list[k] < list[j]){
+        final_list[i] = list[k++];
+      }else{
+        final_list[i] = list[j++];
       }
     }
-
-    while(leftList.hasNext()){
-      final_list.add(leftList.next());
-    }
-
-    while(rightList.hasNext()){
-      final_list.add(rightList.next());
-    }
-
-    return final_list;
+    System.arraycopy(final_list, start, list, start, end - start);
   }
 
   @Override
-  public List<Long> iterativeSort(List<Long> list) {
+  public Long[] iterativeSort(Long[] list) {
     this.startTime = System.nanoTime();
-    List<Long> final_list = iterativeMergeSort(list);
+    count = 0;
+    iterativeMergeSort(list);
     this.endTime = System.nanoTime();
-    return final_list;
+    return list;
   }
 
-  private List<Long> iterativeMergeSort(List<Long> list) {
+  private Long[] iterativeMergeSort(Long[] list) {
+    for (int array_size = 1; array_size < list.length; array_size += array_size * 2) {
+      for (int left_index = 0; left_index < list.length - 1; left_index += array_size * 2) {
+        int mid_index = left_index + array_size - 1;
+        int right_index = Math.min(left_index + array_size * 2 - 1, list.length - 1);
+        Long[] auxiliary = new Long[list.length];
+        count++;
+        merge(list, auxiliary, left_index, mid_index, right_index);
+      }
+    }
+    
     return list;
   }
 

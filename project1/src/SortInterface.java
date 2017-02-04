@@ -5,8 +5,8 @@ import java.util.List;
  * Project project1
  */
 interface SortInterface {
-  List<Long> recursiveSort(List<Long> list);
-  List<Long> iterativeSort(List<Long> list);
+  Long[] recursiveSort(Long[] list);
+  Long[] iterativeSort(Long[] list);
   int getCount();
   long getTime();
 }
