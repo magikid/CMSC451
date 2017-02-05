@@ -1,9 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -16,8 +13,8 @@ class SortMain {
     PrintWriter f = new PrintWriter("output.csv");
     f.println("n,Recursive Count Avg,Recursive Count StdDev,Recursive Time Avg,Recursive Time "
         + "StdDev,Iterative Count Avg,Iterative Count StdDev,Iterative Time Avg,Iterative Time StdDev,");
-    IntStream.rangeClosed(1, 9)
-        .map(i -> (int) Math.pow(4,i))
+    IntStream.rangeClosed(1, 5)
+        .map(i -> (int) Math.pow(10,i))
         .forEach((i) -> {
           System.out.println("Starting batch of " + i);
           BenchmarkSorts bs = new BenchmarkSorts(generateList(i));

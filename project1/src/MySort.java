@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * Created by Chris on 1/28/2017.
  * Project project1
@@ -25,14 +21,13 @@ class MySort implements SortInterface {
       return;
     }
     int half_way = start + (end - start) / 2;
-    count++;
     recursiveMergeSort(list, final_list, start, half_way);
-    count++;
     recursiveMergeSort(list, final_list, half_way, end);
     merge(list, final_list, start, half_way, end);
   }
 
   private void merge(Long[] list, Long[] final_list, int start, int half_way, int end){
+    count++;
     if (half_way >= list.length){
       return;
     }
@@ -65,17 +60,16 @@ class MySort implements SortInterface {
     return list;
   }
 
+  @SuppressWarnings("UnusedReturnValue")
   private Long[] iterativeMergeSort(Long[] list) {
-    for (int array_size = 1; array_size < list.length; array_size += array_size * 2) {
-      for (int left_index = 0; left_index < list.length - 1; left_index += array_size * 2) {
-        int mid_index = left_index + array_size - 1;
-        int right_index = Math.min(left_index + array_size * 2 - 1, list.length - 1);
-        Long[] auxiliary = new Long[list.length];
-        count++;
-        merge(list, auxiliary, left_index, mid_index, right_index);
+    Long[] auxiliary = new Long[list.length];
+    for (int array_size = 1; array_size <= list.length / 2 + 2; array_size *= 2) {
+      for (int mid_index = array_size; mid_index < list.length; mid_index += array_size * 2) {
+        merge(list, auxiliary, mid_index - array_size, mid_index, Math.min(mid_index +
+            array_size, list.length));
       }
     }
-    
+
     return list;
   }
 
